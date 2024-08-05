@@ -2,6 +2,9 @@ import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 const app = express()
+app.get('/',(req,res)=>{
+    res.send("hello welcome to /")
+})
 app.use(cookieParser());
 app.use(cors(
     {
@@ -14,9 +17,10 @@ app.use(express.urlencoded({
     limit:"16kb"
 }))
 app.use(express.static("public"))
-app.get('/', (req, res) => {
-    console.log(req.cookies);   
-   // Access cookies here
-    res.send(req.cookies);
-  });
+
+//routes import
+
+import userRouter from './routes/user.routes.js';
+//routes declaration
+app.use('/api/v1/users',userRouter)
 export {app};
